@@ -1,0 +1,12 @@
+package.json
+package-lock.json
+dist
+
+*.scss
+*.html
+*.png
+*.ico
+*.md
+*.webp
+*.svg
+*.pdf
