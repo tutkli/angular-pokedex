@@ -1,10 +1,6 @@
-:host {
-  background-color: transparent;
-}
-
-nav {
-  padding: 1em;
-  box-sizing: border-box;
+mat-toolbar {
+  background-color: var(--background-color);
+  padding: 1em 1em;
 }
 
 input {

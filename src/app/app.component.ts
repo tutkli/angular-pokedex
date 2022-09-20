@@ -1,25 +1,38 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PokemonService } from './core/services/pokemon/pokemon.service';
-import { filter, Observable } from 'rxjs';
 import { NavigationBarComponent } from './components/navigation-bar/navigation-bar.component';
 import { FlexModule } from '@angular/flex-layout';
-import { Pokemon } from 'pokenode-ts';
+import { PokemonDetailComponent } from './components/pokemon-detail/pokemon-detail.component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
+import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, NavigationBarComponent, FlexModule],
+  imports: [CommonModule, NavigationBarComponent, FlexModule, PokemonDetailComponent, PaginatorComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  constructor(private pokemonService: PokemonService) {}
+  smallerScreen!: boolean;
 
-  get pokemonObservable(): Observable<Pokemon | undefined> {
-    return this.pokemonService.pokemonObservable.pipe(
-      filter((pokemon: Pokemon | undefined): boolean => pokemon !== undefined)
-    );
+  constructor(private breakpointObserver: BreakpointObserver, private changeDetectorRef: ChangeDetectorRef) {}
+
+  ngOnInit(): void {
+    this.breakpointObserver
+      .observe([
+        Breakpoints.TabletPortrait,
+        Breakpoints.TabletLandscape,
+        Breakpoints.HandsetPortrait,
+        Breakpoints.HandsetLandscape,
+        Breakpoints.WebPortrait,
+      ])
+      .subscribe({
+        next: (result: BreakpointState): void => {
+          this.smallerScreen = result.matches;
+          this.changeDetectorRef.detectChanges();
+        },
+      });
   }
 }

@@ -1,3 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
-html, body { height: 100%; min-width: 275px }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; box-sizing:border-box; padding: 3rem; transition: 100ms }
+@use '@angular/material' as mat;
+@include mat.core();
+
+$angular-pokedex-primary: mat.define-palette(mat.$indigo-palette);
+$angular-pokedex-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$angular-pokedex-warn: mat.define-palette(mat.$red-palette);
+
+$angular-pokedex-theme: mat.define-light-theme((
+  color: (
+    primary: $angular-pokedex-primary,
+    accent: $angular-pokedex-accent,
+    warn: $angular-pokedex-warn,
+  )
+));
+@include mat.all-component-themes($angular-pokedex-theme);
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: var(--background-color); }

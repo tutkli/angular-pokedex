@@ -1,0 +1,38 @@
+<section *ngIf="(pokemon$ | async) as pokemon"
+         fxFlex [fxLayout]="smallerScreen ? 'column' : 'row'" fxLayoutAlign="start center">
+  <section fxFlex fxLayout="column" fxLayoutAlign="start start">
+    <p class="pokemon-id">#{{ pokemon.id }}</p>
+    <p class="pokemon-name">{{ pokemon.name | titlecase }}</p>
+
+    <div fxFlex fxLayout="column" fxLayoutAlign="center center" class="pokemon-size">
+      <p>Weight: <span>{{ pokemon.weight | toKilograms }}</span></p>
+      <p>Height: <span>{{ pokemon.height | toMeters }}</span></p>
+    </div>
+  </section>
+
+  <section fxFlex fxLayout="column" fxLayoutAlign="center center">
+    <img [src]="pokemon.sprites.other?.['official-artwork']?.front_default"
+         crossorigin="anonymous" width="100%"
+         alt="The selected Pokemon official Artwork">
+  </section>
+
+  <section fxFlex fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="32px"
+           [style.margin-left]="smallerScreen ? 0 : '3em'">
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <mat-chip-list>
+        <mat-chip *ngFor="let type of pokemon.types" disableRipple
+                  [style.background-color]="pokemonTypeColors[type.type.name]">
+          {{ type.type.name | titlecase }}
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+
+    <p class="pokemon-stats">Base stats:</p>
+
+    <div class="stats-container">
+      <mat-chip-list>
+        <mat-chip *ngFor="let stat of pokemon.stats" disableRipple>{{ stat.stat.name | uppercase }}: {{ stat.base_stat }}</mat-chip>
+      </mat-chip-list>
+    </div>
+  </section>
+</section>

@@ -3,8 +3,8 @@ import { environment } from './environments/environment';
 import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
-import { BackgroundService } from './app/core/services/background/background.service';
+import { BackgroundService } from './app/services/background/background.service';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 function initializeAppFactory(backgroundService: BackgroundService) {
   return (): void => {
@@ -20,7 +20,7 @@ bootstrapApplication(AppComponent, {
   providers: [
     importProvidersFrom(BrowserModule),
     importProvidersFrom(BrowserAnimationsModule),
-    importProvidersFrom(HttpClientModule),
+    importProvidersFrom(MatSnackBarModule),
     BackgroundService,
     {
       provide: APP_INITIALIZER,

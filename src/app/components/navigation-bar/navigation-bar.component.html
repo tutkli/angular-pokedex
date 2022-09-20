@@ -1,3 +1,7 @@
 <nav>
-  <input type="text">
+  <mat-toolbar>
+    <mat-toolbar-row fxLayout="row" fxLayoutAlign="end center">
+      <input #searchInput type="text" placeholder="Search by name or number" (keyup.enter)="searchPokemon()">
+    </mat-toolbar-row>
+  </mat-toolbar>
 </nav>

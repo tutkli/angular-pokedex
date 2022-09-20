@@ -1,19 +1,5 @@
-<div fxLayout="column" fxLayoutAlign="start start" class="container">
-  <app-navigation-bar></app-navigation-bar>
-
-  <div fxLayout="row" fxLayoutAlign="start start" class="content">
-    <div  fxLayout="column" style="height: 100%">
-      <div class="pokemon-id">#{{ (pokemonObservable | async)?.id }}</div>
-      <div class="pokemon-name">{{ (pokemonObservable | async)?.name | titlecase }}</div>
-      <div fxLayout="column" fxLayoutAlign="start end" class="pokemon-size">
-        <div>Weight: {{ (pokemonObservable | async)?.weight }}</div>
-        <div>Height: {{ (pokemonObservable | async)?.height }}</div>
-      </div>
-    </div>
-
-    <div>
-      <img [src]="(pokemonObservable | async)?.sprites?.other?.['official-artwork']?.front_default" crossorigin="anonymous" width="475" height="475">
-    </div>
-  </div>
-</div>
-
+<app-navigation-bar></app-navigation-bar>
+<section [fxLayout]="smallerScreen? 'column' : 'row'" class="content" [style.height]="smallerScreen ? 'auto' : 'calc(100% - 104px)'">
+  <app-pokemon-detail [fxFlex]="smallerScreen ? undefined : 95"></app-pokemon-detail>
+  <app-paginator [fxFlex]="smallerScreen ? undefined : 5"></app-paginator>
+</section>

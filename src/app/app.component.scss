@@ -1,20 +1,3 @@
-.container {
-  height: 100%;
-  color: #ffffff;
-  .content {
-    height: 100%;
-    .pokemon-id {
-      font-weight: 500;
-      font-size: 2rem;
-    }
-    .pokemon-name {
-      font-weight: 500;
-      font-size: 5rem;
-    }
-    .pokemon-size {
-      height: 100%;
-      box-sizing: border-box;
-      padding: 5rem;
-    }
-  }
+.content {
+  min-height: calc(100% - 104px);
 }
