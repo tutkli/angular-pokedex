@@ -4,6 +4,8 @@ A simple Pokemon viewer.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.2.
 
+Check project at https://tutkli.github.io/angular-pokedex/
+
 <p>
   <img src="src/assets/images/angular-pokedex-1.webp" alt="Screenshot of the Angular Pokedex application">
 </p>
