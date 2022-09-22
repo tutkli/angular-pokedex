@@ -1,13 +1,13 @@
 <nav *ngIf="(pokemon$ | async) as pokemon"
      [fxLayout]="smallerScreen ? 'row wrap' : 'column'" fxLayoutAlign="center center">
-  <button mat-icon-button (click)="getPreviousPokemon()">
+  <button mat-icon-button (click)="getPreviousPokemon()" aria-label="Arrow icon to get the previous Pokemon">
     <mat-icon>{{ smallerScreen ? 'chevron_left': 'expand_less' }}</mat-icon>
   </button>
-  <button mat-icon-button *ngFor="let number of idArray; let index = index"
+  <button mat-icon-button *ngFor="let number of idArray; let index = index" aria-label="Button with number representing a Pokemon id"
           (click)="getPokemonById(pokemon.id + index)">
     {{ pokemon.id + index }}
   </button>
-  <button mat-icon-button (click)="getNextPokemon()">
+  <button mat-icon-button (click)="getNextPokemon()" aria-label="Arrow icon to get the next Pokemon">
     <mat-icon>{{ smallerScreen ? 'chevron_right' : 'expand_more'}}</mat-icon>
   </button>
 </nav>
