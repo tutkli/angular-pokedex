@@ -8,10 +8,12 @@ import { MessageService } from '../message/message.service';
 })
 export class PokemonService {
   private readonly pokeAPI: PokemonClient = new PokemonClient();
-  private readonly pokemonSubject: BehaviorSubject<Pokemon | undefined> = new BehaviorSubject<Pokemon | undefined>(
-    undefined
-  );
-  readonly pokemon$: Observable<Pokemon | undefined> = this.pokemonSubject.asObservable();
+  private readonly pokemon: BehaviorSubject<Pokemon | undefined> = new BehaviorSubject<Pokemon | undefined>(undefined);
+  readonly pokemon$: Observable<Pokemon | undefined> = this.pokemon.asObservable();
+
+  get currentPokemon(): Pokemon | undefined {
+    return this.pokemon.getValue();
+  }
 
   constructor(private messageService: MessageService) {}
 
@@ -23,12 +25,26 @@ export class PokemonService {
     if (typeof nameOrId === 'string') {
       return this.pokeAPI
         .getPokemonByName(nameOrId.toLowerCase())
-        .then((pokemon: Pokemon): void => this.pokemonSubject.next(pokemon))
+        .then((pokemon: Pokemon): void => this.pokemon.next(pokemon))
         .catch((): void => this.messageService.showMessage("We couldn't find that Pokemon."));
     }
     return this.pokeAPI
       .getPokemonById(nameOrId)
-      .then((pokemon: Pokemon): void => this.pokemonSubject.next(pokemon))
+      .then((pokemon: Pokemon): void => this.pokemon.next(pokemon))
       .catch((): void => this.messageService.showMessage("We couldn't find that Pokemon."));
+  }
+
+  async getPreviousPokemon(): Promise<void> {
+    if (this.currentPokemon === undefined || this.currentPokemon.id === 1) {
+      return;
+    }
+    await this.getPokemon(this.currentPokemon.id - 1);
+  }
+
+  async getNextPokemon(): Promise<void> {
+    if (this.currentPokemon === undefined) {
+      return;
+    }
+    await this.getPokemon(this.currentPokemon.id + 1);
   }
 }

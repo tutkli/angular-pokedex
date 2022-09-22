@@ -11,7 +11,7 @@
   </section>
 
   <section fxFlex fxLayout="column" fxLayoutAlign="center center">
-    <img [src]="pokemon.sprites.other?.['official-artwork']?.front_default"
+    <img [src]="pokemon.sprites.other?.['official-artwork']?.front_default" [draggable]="false"
          crossorigin="anonymous" width="100%"
          alt="The selected Pokemon official Artwork">
   </section>
@@ -20,7 +20,7 @@
            [style.margin-left]="smallerScreen ? 0 : '3em'">
     <div fxLayout="row" fxLayoutAlign="start center">
       <mat-chip-list>
-        <mat-chip *ngFor="let type of pokemon.types" disableRipple
+        <mat-chip *ngFor="let type of pokemon.types" disableRipple class="mat-elevation-z2"
                   [style.background-color]="pokemonTypeColors[type.type.name]">
           {{ type.type.name | titlecase }}
         </mat-chip>
@@ -31,7 +31,7 @@
 
     <div class="stats-container">
       <mat-chip-list>
-        <mat-chip *ngFor="let stat of pokemon.stats" disableRipple>{{ stat.stat.name | uppercase }}: {{ stat.base_stat }}</mat-chip>
+        <mat-chip *ngFor="let stat of pokemon.stats" disableRipple class="mat-elevation-z2">{{ stat.stat.name | uppercase }}: {{ stat.base_stat }}</mat-chip>
       </mat-chip-list>
     </div>
   </section>

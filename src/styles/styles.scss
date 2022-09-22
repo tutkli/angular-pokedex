@@ -15,4 +15,4 @@ $angular-pokedex-theme: mat.define-light-theme((
 @include mat.all-component-themes($angular-pokedex-theme);
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: var(--background-color); }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: var(--background-color); transition: background-color .3s ease-in-out }

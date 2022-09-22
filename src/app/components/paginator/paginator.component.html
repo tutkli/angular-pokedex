@@ -1,18 +1,13 @@
-<nav fxLayout="column" fxLayoutAlign="center center">
-  <button mat-icon-button>
-    <mat-icon>expand_less</mat-icon>
+<nav *ngIf="(pokemon$ | async) as pokemon"
+     [fxLayout]="smallerScreen ? 'row wrap' : 'column'" fxLayoutAlign="center center">
+  <button mat-icon-button (click)="getPreviousPokemon()">
+    <mat-icon>{{ smallerScreen ? 'chevron_left': 'expand_less' }}</mat-icon>
   </button>
-  <button mat-icon-button>1</button>
-  <button mat-icon-button>2</button>
-  <button mat-icon-button>3</button>
-  <button mat-icon-button>4</button>
-  <button mat-icon-button>5</button>
-  <button mat-icon-button>6</button>
-  <button mat-icon-button>7</button>
-  <button mat-icon-button>8</button>
-  <button mat-icon-button>9</button>
-  <button mat-icon-button>10</button>
-  <button mat-icon-button>
-    <mat-icon>expand_more</mat-icon>
+  <button mat-icon-button *ngFor="let number of idArray; let index = index"
+          (click)="getPokemonById(pokemon.id + index)">
+    {{ pokemon.id + index }}
+  </button>
+  <button mat-icon-button (click)="getNextPokemon()">
+    <mat-icon>{{ smallerScreen ? 'chevron_right' : 'expand_more'}}</mat-icon>
   </button>
 </nav>
