@@ -23,6 +23,4 @@ Open http://localhost:4200 to view it in the browser.
 
 ## Important Notes
 
-Please also note that the PokeAPI is still in the process of being updated.
-
-There are no defaultProps. All passed props are required and there are no optional props. This is specified in the propTypes.
+Please also note that the PokeAPI is still in the process of being updated, some Pokemons from later generations may be missing.
