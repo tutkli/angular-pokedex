@@ -4,6 +4,8 @@ A simple Pokemon viewer.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.2.
 
+**Check project at https://tutkli.github.io/angular-pokedex/**
+
 <p>
   <img src="src/assets/images/angular-pokedex-1.webp" alt="Screenshot of the Angular Pokedex application">
 </p>
@@ -12,7 +14,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 * [Angular Material](https://material.angular.io/) Official Angular UI component library
 * [FastAverageColor](https://github.com/fast-average-color/fast-average-color) Calculates the average color of any image.
-* [Pokenode-ts](https://github.com/Gabb-c/pokenode-ts) Node wrapper for the PokéAPI.
+* [Pokenode-ts](https://github.com/Gabb-c/pokenode-ts) Node.js wrapper for the PokéAPI.
 
 ## Available Scripts
 
