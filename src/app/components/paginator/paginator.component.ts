@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { PokemonService } from '../../services/pokemon/pokemon.service';
 import { Observable } from 'rxjs';
 import { Pokemon } from 'pokenode-ts';
-import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+import { BreakpointObserverService } from '../../services/breakpoint-observer/breakpoint-observer.service';
 
 @Component({
   selector: 'app-paginator',
@@ -16,36 +16,18 @@ import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/l
   styleUrls: ['./paginator.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PaginatorComponent implements OnInit {
+export class PaginatorComponent {
   idArray = Array.from(Array(10).keys());
-  smallerScreen!: boolean;
+
+  get smallBreakpoint$(): Observable<boolean> {
+    return this.breakpointObserverService.smallBreakpoint$;
+  }
 
   get pokemon$(): Observable<Pokemon | undefined> {
     return this.pokemonService.pokemon$;
   }
 
-  constructor(
-    private pokemonService: PokemonService,
-    private breakpointObserver: BreakpointObserver,
-    private changeDetectorRef: ChangeDetectorRef
-  ) {}
-
-  ngOnInit(): void {
-    this.breakpointObserver
-      .observe([
-        Breakpoints.TabletPortrait,
-        Breakpoints.TabletLandscape,
-        Breakpoints.HandsetPortrait,
-        Breakpoints.HandsetLandscape,
-        Breakpoints.WebPortrait,
-      ])
-      .subscribe({
-        next: (result: BreakpointState): void => {
-          this.smallerScreen = result.matches;
-          this.changeDetectorRef.detectChanges();
-        },
-      });
-  }
+  constructor(private pokemonService: PokemonService, private breakpointObserverService: BreakpointObserverService) {}
 
   async getPreviousPokemon(): Promise<void> {
     await this.pokemonService.getPreviousPokemon();

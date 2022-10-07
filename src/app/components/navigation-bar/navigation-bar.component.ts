@@ -19,7 +19,6 @@ export class NavigationBarComponent {
 
   /**
    * Automatically search the Pokemon when pressing ENTER inside the input
-   * @param event
    */
   searchPokemon(): void {
     if (this.searchInputRef === undefined) {

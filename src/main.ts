@@ -3,12 +3,12 @@ import { environment } from './environments/environment';
 import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BackgroundService } from './app/services/background/background.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { InitService } from './app/services/init/init.service';
 
-function initializeAppFactory(backgroundService: BackgroundService) {
+function initializeAppFactory(initService: InitService) {
   return (): void => {
-    backgroundService.init().then();
+    initService.initializeApp().then();
   };
 }
 
@@ -21,11 +21,11 @@ bootstrapApplication(AppComponent, {
     importProvidersFrom(BrowserModule),
     importProvidersFrom(BrowserAnimationsModule),
     importProvidersFrom(MatSnackBarModule),
-    BackgroundService,
+    InitService,
     {
       provide: APP_INITIALIZER,
       useFactory: initializeAppFactory,
-      deps: [BackgroundService],
+      deps: [InitService],
       multi: true,
     },
   ],

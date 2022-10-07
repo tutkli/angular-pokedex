@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PokemonService } from '../../services/pokemon/pokemon.service';
 import { filter, Observable } from 'rxjs';
@@ -8,7 +8,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { PokemonTypeColors } from '../../shared/pokemon-type-colors.const';
 import { ToKilogramsPipe } from '../../pipes/to-kilograms/to-kilograms.pipe';
 import { ToMetersPipe } from '../../pipes/to-meters/to-meters.pipe';
-import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+import { BreakpointObserverService } from '../../services/breakpoint-observer/breakpoint-observer.service';
 
 @Component({
   selector: 'app-pokemon-detail',
@@ -18,34 +18,16 @@ import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/l
   styleUrls: ['./pokemon-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PokemonDetailComponent implements OnInit {
+export class PokemonDetailComponent {
   pokemonTypeColors = PokemonTypeColors;
-  smallerScreen!: boolean;
+
+  get smallBreakpoint$(): Observable<boolean> {
+    return this.breakpointObserverService.smallBreakpoint$;
+  }
 
   get pokemon$(): Observable<Pokemon | undefined> {
     return this.pokemonService.pokemon$.pipe(filter((pokemon: Pokemon | undefined): boolean => pokemon !== undefined));
   }
 
-  constructor(
-    private pokemonService: PokemonService,
-    private breakpointObserver: BreakpointObserver,
-    private changeDetectorRef: ChangeDetectorRef
-  ) {}
-
-  ngOnInit(): void {
-    this.breakpointObserver
-      .observe([
-        Breakpoints.TabletPortrait,
-        Breakpoints.TabletLandscape,
-        Breakpoints.HandsetPortrait,
-        Breakpoints.HandsetLandscape,
-        Breakpoints.WebPortrait,
-      ])
-      .subscribe({
-        next: (result: BreakpointState): void => {
-          this.smallerScreen = result.matches;
-          this.changeDetectorRef.detectChanges();
-        },
-      });
-  }
+  constructor(private pokemonService: PokemonService, private breakpointObserverService: BreakpointObserverService) {}
 }

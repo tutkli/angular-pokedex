@@ -1,5 +1,5 @@
 <section *ngIf="(pokemon$ | async) as pokemon"
-         fxFlex [fxLayout]="smallerScreen ? 'column' : 'row'" fxLayoutAlign="start center">
+         fxFlex [fxLayout]="(smallBreakpoint$ | async) ? 'column' : 'row'" fxLayoutAlign="start center">
   <section fxFlex fxLayout="column" fxLayoutAlign="start start">
     <p class="pokemon-id">#{{ pokemon.id }}</p>
     <p class="pokemon-name">{{ pokemon.name | titlecase }}</p>
@@ -17,7 +17,7 @@
   </section>
 
   <section fxFlex fxLayout="column" fxLayoutAlign="center start" fxLayoutGap="32px"
-           [style.margin-left]="smallerScreen ? 0 : '3em'">
+           [style.margin-left]="(smallBreakpoint$ | async) ? 0 : '3em'">
     <div fxLayout="row" fxLayoutAlign="start center">
       <mat-chip-list>
         <mat-chip *ngFor="let type of pokemon.types" disableRipple class="mat-elevation-z2"

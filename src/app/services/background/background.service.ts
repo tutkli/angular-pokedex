@@ -13,7 +13,7 @@ export class BackgroundService {
   constructor(private pokemonService: PokemonService) {}
 
   /**
-   * Initializes the app by requesting the first Pokemon and upgrading the background color with the result
+   * Initializes the background service by requesting the first Pokemon and upgrading the background color with the result
    */
   async init(): Promise<void> {
     return new Promise<void>((resolve: any, reject: any): void => {
